@@ -1,5 +1,5 @@
 import { Form, Input, Button, Checkbox, Typography, Divider } from 'antd'
-import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons'
+import { LockOutlined, MailOutlined } from '@ant-design/icons'
 
 const { Title, Text, Link } = Typography
 
@@ -9,127 +9,94 @@ function Login() {
     }
 
     return (
-        <div style={{ display: 'flex', height: '100vh' }}>
+        <>
+            {/* Responsive styles */}
+            <style>{`
+        .login-wrapper {
+          display: flex;
+          height: 100vh;
+          flex-direction: row;
+        }
+        .login-left {
+          flex: 1;
+          background: linear-gradient(135deg, #1677ff 0%, #0958d9 100%);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 60px;
+          color: white;
+        }
+        .login-right {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 40px;
+          background: #fff;
+        }
+        .feature-item {
+          background: rgba(255,255,255,0.12);
+          border-radius: 10px;
+          padding: 12px 18px;
+          margin-bottom: 12px;
+          font-size: 14px;
+          color: white;
+        }
 
-            {/* Left Side — Image / Brand Panel */}
-            <div style={{
-                flex: 1,
-                background: 'linear-gradient(135deg, #1677ff 0%, #0958d9 100%)',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '60px',
-                color: 'white'
-            }}>
-                <div style={{ fontSize: 64, marginBottom: 24 }}>⚡</div>
-                <Title style={{ color: 'white', margin: 0 }} level={1}>MyApp</Title>
-                <Text style={{ color: 'rgba(255,255,255,0.85)', fontSize: 18, marginTop: 16, textAlign: 'center' }}>
-                    Your professional workspace — manage everything in one place.
-                </Text>
+        /* Tablet */
+        @media (max-width: 768px) {
+          .login-wrapper {
+            flex-direction: column;
+            height: auto;
+            min-height: 100vh;
+          }
+          .login-left {
+            padding: 40px 24px;
+            flex: none;
+          }
+          .login-right {
+            flex: none;
+            padding: 32px 24px;
+          }
+        }
 
-                {/* Feature bullets */}
-                <div style={{ marginTop: 48, width: '100%', maxWidth: 320 }}>
-                    {[
-                        '✅ Secure and encrypted login',
-                        '✅ Real-time dashboard updates',
-                        '✅ Collaborate with your team',
-                    ].map((item, i) => (
-                        <div key={i} style={{
-                            background: 'rgba(255,255,255,0.12)',
-                            borderRadius: 10,
-                            padding: '12px 18px',
-                            marginBottom: 12,
-                            fontSize: 14,
-                            color: 'white'
-                        }}>
-                            {item}
-                        </div>
-                    ))}
-                </div>
-            </div>
+        /* Mobile */
+        @media (max-width: 480px) {
+          .login-left {
+            padding: 32px 16px;
+          }
+          .login-right {
+            padding: 24px 16px;
+          }
+          .login-form-wrap {
+            width: 100% !important;
+          }
+        }
+      `}</style>
 
-            {/* Right Side — Login Form */}
-            <div style={{
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '60px',
-                background: '#fff'
-            }}>
-                <div style={{ width: '100%', maxWidth: 380 }}>
+            <div className="login-wrapper">
 
-                    {/* Header */}
-                    <Title level={2} style={{ marginBottom: 4 }}>Welcome back</Title>
-                    <Text type="secondary" style={{ fontSize: 15 }}>
-                        Sign in to your account to continue
+                {/* Left Side — Brand Panel */}
+                <div className="login-left">
+                    <div style={{ fontSize: 48, marginBottom: 16 }}>⚡</div>
+                    <Title style={{ color: 'white', margin: 0, textAlign: 'center' }} level={2}>
+                        MyApp
+                    </Title>
+                    <Text style={{
+                        color: 'rgba(255,255,255,0.85)',
+                        fontSize: 15,
+                        marginTop: 12,
+                        textAlign: 'center',
+                        maxWidth: 320
+                    }}>
+                        Your professional workspace — manage everything in one place.
                     </Text>
 
-                    <Divider />
-
-                    {/* Form */}
-                    <Form
-                        name="login"
-                        layout="vertical"
-                        onFinish={onFinish}
-                        autoComplete="off"
-                        size="large"
-                    >
-
-                        {/* Email / Username */}
-                        <Form.Item
-                            label="Email or Username"
-                            name="email"
-                            rules={[{ required: true, message: 'Please enter your email or username' }]}
-                        >
-                            <Input
-                                prefix={<MailOutlined style={{ color: '#bbb' }} />}
-                                placeholder="you@example.com"
-                            />
-                        </Form.Item>
-
-                        {/* Password */}
-                        <Form.Item
-                            label="Password"
-                            name="password"
-                            rules={[{ required: true, message: 'Please enter your password' }]}
-                        >
-                            <Input.Password
-                                prefix={<LockOutlined style={{ color: '#bbb' }} />}
-                                placeholder="Enter your password"
-                            />
-                        </Form.Item>
-
-                        {/* Remember me + Forgot password */}
-                        <Form.Item>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Form.Item name="remember" valuePropName="checked" noStyle>
-                                    <Checkbox>Remember me</Checkbox>
-                                </Form.Item>
-                                <Link href="#">Forgot password?</Link>
-                            </div>
-                        </Form.Item>
-
-                        {/* Submit Button */}
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit" block size="large">
-                                Sign In
-                            </Button>
-                        </Form.Item>
-
-                        {/* Sign up link */}
-                        <div style={{ textAlign: 'center' }}>
-                            <Text type="secondary">Don't have an account? </Text>
-                            <Link href="#">Sign up for free</Link>
-                        </div>
-
-                    </Form>
-                </div>
-            </div>
-
-        </div>
-    )
-}
-
-export default Login
+                    <div style={{ marginTop: 32, width: '100%', maxWidth: 320 }}>
+                        {[
+                            '✅ Secure and encrypted login',
+                            '✅ Real-time dashboard updates',
+                            '✅ Collaborate with your team',
+                        ].map((item, i) => (
+                            <div key={i} className="feature-item">{item}</
